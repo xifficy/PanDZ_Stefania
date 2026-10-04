@@ -1,0 +1,37 @@
+#include <iostream> 
+using namespace std;
+int main() { 
+int N; 
+cout << "Сколько самолетов? "; 
+cin >> N;
+double m, S, T, CD, CL;
+double V, rho;
+double g = 9.81;
+
+cout << "Введите скорость V и плотность rho: ";
+cin >> V >> rho;
+
+int leader = 0;
+double maxA = -1000000;
+
+for (int i = 0; i < N; i++) {
+    cout << "Самолет " << i + 1 << " (m S T CD CL): ";
+    cin >> m >> S >> T >> CD >> CL;
+
+    double L = 0.5 * rho * V * V * S * CL;
+    double D = 0.5 * rho * V * V * S * CD;
+    double a = (T - D) / m;
+
+    cout << "  L = " << L << ", D = " << D
+         << ", ускорение a = " << a << endl;
+
+    if (a > maxA) { // нашли нового лидера
+        maxA = a;
+        leader = i + 1;
+    }
+}
+
+cout << "Наибольшее ускорение у самолета " << leader
+     << " (a = " << maxA << " м/с^2)" << endl;
+return 0;
+}
