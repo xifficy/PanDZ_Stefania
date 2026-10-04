@@ -1,0 +1,18 @@
+#include <iostream> 
+#include <cmath> 
+using namespace std;
+int main() { 
+double ay, h; 
+cout << "Введите вертикальное ускорение ay (в м/с^2): ";
+cin >> ay; 
+cout << "Введите высоту h (в м): ";
+cin >> h;
+if (ay > 0 && h > 0) {
+    double t = sqrt(2 * h / ay);
+    cout << "Время набора высоты t = " << t << " с" << endl;
+} 
+else {
+    cout << "Ошибка: ускорение и высота должны быть больше 0!" << endl;
+}
+return 0;
+}
