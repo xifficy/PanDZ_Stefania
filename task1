@@ -1,0 +1,16 @@
+#include <iostream>
+using namespace std;
+int main() {
+	double S, V, ro, CL;
+	count << "Введте площадь крыла (S) в м^2: ";
+	cin >> S;
+	count << "Введте скорость (V) в м/c : ";
+	cin  >> V;
+	count << "Введте плотность воздуха (ro) в кг/м^3: ";
+	cin >> ro;
+	count << "Введте коэффициент подъёмной силы (CL): ";
+	cin >> CL;
+	double L = 0.5 * ro * V * V * S * CL;
+	count << "Подъёмная сила L = " << L << "H" << endln;
+	return 0;
+	}
