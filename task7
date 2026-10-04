@@ -1,0 +1,22 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    double m, L, D, T;
+    cout << "введите m, L, D, T: ";
+    cin >> m >> L >> D >> T;
+
+    double g = 9.81;
+    double ay = (L - m * g) / m; // вертикальное ускорение
+
+    cout << "Вертикальное ускорение ay = " << ay << " м/с^2" << endl;
+
+    if (ay > 0.5) {
+        cout << "Режим: набор высоты" << endl;
+    } else if (ay >= 0) { // тут уже точно ay <= 0.5
+        cout << "Режим: горизонтальный полет" << endl;
+    } else {
+        cout << "Режим: снижение" << endl;
+    }
+    return 0;
+}
