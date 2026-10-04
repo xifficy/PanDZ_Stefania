@@ -1,0 +1,17 @@
+#include <iostream>
+using namespace std;
+
+double calcDrag(double ro, double V, double S, double CD) 
+{ 
+	double D = 0.5 * ro * V * V * S * CD;
+	return D;
+}
+
+int main()
+{
+double ro, V, S, CD;
+cout << "Введите ro, V, S, CD через пробел: ";
+cin >> ro >> V >> S >> CD;
+cout << "Сопротивление D = " << calcDrag(ro, V, S, CD) << " Н" << endl;
+return 0;
+}
