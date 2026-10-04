@@ -1,0 +1,20 @@
+#include <iostream> 
+using namespace std;
+int main() { 
+double m, L, D, T; 
+cout << "Введите массу m (в кг): "; 
+cin >> m;
+cout << "Введите подъемную силу L (в Н): ";
+cin >> L;
+cout << "Введите сопротивление D (в Н): "; 
+cin >> D; 
+cout << "Введите тягу T (в Н): "; 
+cin >> T;
+double g = 9.81;
+double a = (T - D) / m;          // ускорение по направлению движения
+double ay = (L - m * g) / m;     // ускорение вертикальное
+
+cout << "Ускорение по направлению движения a = " << a << " м/с^2" << endl;
+cout << "Вертикальное ускорение ay = " << ay << " м/с^2" << endl;
+return 0;
+}
