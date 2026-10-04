@@ -1,0 +1,50 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    const int N = 3;
+    double m[N], S[N], T[N], CD[N], CL[N];
+    double V, ro, h;
+    double g = 9.81;
+
+    cout << "Введите скорость V и плотность ro: ";
+    cin >> V >> ro;
+    cout << "Введите высоту h: ";
+    cin >> h;
+
+    for (int i = 0; i < N; i++) {
+        cout << "Самолет " << i + 1 << ": введите m, S, T, CD, CL: ";
+        cin >> m[i] >> S[i] >> T[i] >> CD[i] >> CL[i];
+    }
+
+    int best = 0;          // номер лучшего самолета
+    double bestTime = 0;   // его время
+
+    for (int i = 0; i < N; i++) {
+        double L = 0.5 * ro * V * V * S[i] * CL[i];
+        double D = 0.5 * ro * V * V * S[i] * CD[i];
+        double a = (T[i] - D) / m[i];
+        double ay = (L - m[i] * g) / m[i];
+
+        cout << "Самолет " << i + 1 << ": L = " << L
+             << ", D = " << D << ", a = " << a << endl;
+
+        if (ay <= 0) {
+            cout << "  Этот самолет не набирает высоту" << endl;
+            continue; // пропускаем его
+        }
+
+        double t = sqrt(2 * h / ay);
+        cout << "  Время набора высоты: t = " << t << " с" << endl;
+
+        if (bestTime == 0 || t < bestTime) {
+            bestTime = t;
+            best = i;
+        }
+    }
+
+    cout << "Быстрее всех наберет высоту самолет " << best + 1
+         << " (за " << bestTime << " с)" << endl;
+    return 0;
+}
