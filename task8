@@ -1,0 +1,50 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+struct Aircraft {
+    double m;   // масса
+    double T;   // тяга
+    double CL;  // кэф подъемной силы
+    double CD;  // кэф сопротивления
+    double t;   // сюда записывается время набора высоты
+};
+
+int main() {
+    double g = 9.81;
+    double V = 100, S = 20, rho = 1.225, h = 1000;
+
+    Aircraft planes[3] = {
+        {10000, 30000, 0.5, 0.03},
+        {15000, 45000, 0.6, 0.04},
+        {8000,  25000, 0.45, 0.025}
+    };
+
+    for (int i = 0; i < 3; i++) {
+        double L = 0.5 * rho * V * V * S * planes[i].CL;
+        double ay = (L - planes[i].m * g) / planes[i].m;
+        if (ay > 0) {
+            planes[i].t = sqrt(2 * h / ay);
+        } else {
+            planes[i].t = 999999; // не набирает высоту => ставим "бесконечность"
+        }
+    }
+
+    // сортировка пузырьком по времени (от быстрого к медленному)
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2 - i; j++) {
+            if (planes[j].t > planes[j + 1].t) {
+                Aircraft tmp = planes[j];
+                planes[j] = planes[j + 1];
+                planes[j + 1] = tmp;
+            }
+        }
+    }
+
+    cout << "Результаты (по возрастанию времени набора высоты):" << endl;
+    for (int i = 0; i < 3; i++) {
+        cout << "Самолет " << i + 1 << ": m = " << planes[i].m
+             << ", t = " << planes[i].t << " с" << endl;
+    }
+    return 0;
+}
