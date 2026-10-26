@@ -1,0 +1,28 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    double v0 = 50.0, g = 9.8, dt = 1.0;
+    vector<double> times, heights;
+    for (double t = 0.0; ; t += dt) {
+        double h = v0 * t - 0.5 * g * t * t;
+        times.push_back(t);
+        heights.push_back(h);
+        if (h <= 0 && t > 0) break;  // нашли падение
+    }
+
+    auto it = find_if(heights.begin(), heights.end(),
+                      [](double h) { return h <= 0.0; });
+
+    if (it == heights.end()) {
+        cout << "падения не было в интервале(ракета летает еще)" << endl;
+    } else {
+        size_t idx = distance(heights.begin(), it);
+        double t_fall = times[idx];        // вариант t = idx * dt
+        cout << "ракета упала в момент t = " << t_fall
+             << " с (h = " << heights[idx] << " м)" << endl;
+    }
+    return 0;
+}
