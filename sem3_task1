@@ -1,3 +1,6 @@
+// Хранение траектории. создаем вектор std: vector‹double› для хранения высоты ракеты по времени (каждая секунда)
+
+
 #include <iostream>
 #include <vector>
 #include <iomanip>
