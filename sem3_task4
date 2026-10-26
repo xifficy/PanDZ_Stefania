@@ -21,7 +21,13 @@ int main() {
     double sum = accumulate(velocities.begin(), velocities.end(), 0.0);
     double avg = sum / velocities.size();
 
-    cout << "средняя скорость полета" << fixed << setprecision(2)
-         << avg << " м/с" << endl;
+    cout << "средняя скорость полета: " << fixed << setprecision(2) << avg << " м/с" << endl;
+
+
+double T = 2 * v0 / g;     
+    double integral = 2 * v0 * v0 * v0 / (3 * g * g);
+    cout << "интегральное среднее: " << integral / T << " м/с" << endl; // решение через интеграл 
+
+
     return 0;
 }
