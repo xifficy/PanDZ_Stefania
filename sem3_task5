@@ -1,3 +1,6 @@
+// Многомерные данные(3D-траектория)
+
+
 #include <iostream>
 #include <vector>
 #include <iomanip>
