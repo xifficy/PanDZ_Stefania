@@ -1,0 +1,21 @@
+// Сортировка и удаление дубликатов
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    // координаты x из разных экспериментов (с дубликатами)
+    vector<double> xs = {120.5, 30.0, 85.2, 30.0, 120.5, 47.1, 85.2};
+
+    sort(xs.begin(), xs.end());          // сначала сортируем
+    auto new_end = unique(xs.begin(), xs.end());  // как и remove_if НЕ удаляет сам
+    xs.erase(new_end, xs.end());         // дожимаем eraseом
+
+    cout << "итоговый вектор: ";
+    for (double x : xs) cout << x << " ";
+    cout << endl;
+    return 0;
+}
