@@ -1,0 +1,69 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <iomanip>
+#include <utility>
+using namespace std;
+
+// функция моделирует полет, возвращает время и высот
+
+pair<vector<double>, vector<double>> simulate(double v0) {
+    const double g = 9.8, dt = 1.0;
+    vector<double> times, heights;
+    for (double t = 0.0; ; t += dt) {
+        double h = v0 * t - 0.5 * g * t * t;
+        if (h < 0) break;
+        times.push_back(t);
+        heights.push_back(h);
+    }
+    return {times, heights};
+}
+
+int main() {
+    auto d1 = simulate(50.0);  // первая ракета
+    auto d2 = simulate(70.0);  // вторая ракета
+
+    // данные первой ракеты
+    double max1 = *max_element(d1.second.begin(), d1.second.end());
+    size_t idx1 = distance(d1.second.begin(),
+                           max_element(d1.second.begin(), d1.second.end()));
+    double t_max1 = d1.first[idx1];
+
+    auto it1 = find_if(d1.second.begin(), d1.second.end(),
+                       [](double h) { return h <= 0.0; });
+    bool fallen1 = (it1 != d1.second.end());
+    double t_fall1 = fallen1 ? d1.first[distance(d1.second.begin(), it1)] : -1;
+
+    // данные второй ракеты бээу 
+    double max2 = *max_element(d2.second.begin(), d2.second.end());
+    size_t idx2 = distance(d2.second.begin(),
+                           max_element(d2.second.begin(), d2.second.end()));
+    double t_max2 = d2.first[idx2];
+
+    auto it2 = find_if(d2.second.begin(), d2.second.end(),
+                       [](double h) { return h <= 0.0; });
+    bool fallen2 = (it2 != d2.second.end());
+    double t_fall2 = fallen2 ? d2.first[distance(d2.second.begin(), it2)] : -1;
+
+    // таблица сравнения
+    cout << setw(10) << "ракета" << setw(15) << "max_height"
+         << setw(15) << "time_of_max" << setw(15) << "time_of_fall" << endl;
+    cout << setw(10) << "1" << setw(15) << fixed << setprecision(1) << max1
+         << setw(15) << t_max1 << setw(15) << (fallen1 ? to_string(t_fall1) : "в воздухе") << endl;
+    cout << setw(10) << "2" << setw(15) << max2
+         << setw(15) << t_max2 << setw(15) << (fallen2 ? to_string(t_fall2) : "в воздухе") << endl;
+
+    // вывод
+    if (max1 > max2) cout << "выше поднялась ракета 1" << endl;
+    else if (max2 > max1) cout << "выше поднялась ракета 2" << endl;
+    else cout << "высота одинаковая" << endl;
+
+    if (fallen1 && fallen2) {
+        if (t_fall1 > t_fall2) cout << "дольше в воздухе ракета 1" << endl;
+        else if (t_fall2 > t_fall1) cout << "дольше в воздухе ракета 2" << endl;
+        else cout << "время полета одинаковое" << endl;
+    } else {
+        cout << "одна из ракет еще не упала" << endl;
+    }
+    return 0;
+}
