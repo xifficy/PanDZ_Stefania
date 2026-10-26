@@ -1,0 +1,26 @@
+#include <iostream>
+#include <vector>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double v0 = 50.0, g = 9.8, dt = 1.0;
+
+    vector<double> times, velocities;
+    for (double t = 0.0; ; t += dt) {
+        double v = v0 - g * t;   // v(t) = v0 - g*t
+        if (v < -v0) break;      // стоп если сильно отрицательно
+        times.push_back(t);
+        velocities.push_back(v);
+    }
+
+    cout << setw(10) << "t, с" << setw(15) << "v, м/с" << endl;
+    for (size_t i = 0; i < velocities.size(); ++i) {
+        cout << setw(10) << fixed << setprecision(1) << times[i]
+             << setw(15) << fixed << setprecision(2) << velocities[i] << endl;
+    }
+
+    // v меняет знак при t = v0/g
+    cout << "Скорость изменит знак при t = " << v0 / g << " с" << endl;
+    return 0;
+}
