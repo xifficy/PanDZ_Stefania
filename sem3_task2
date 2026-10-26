@@ -1,3 +1,6 @@
+// Максимальная высота плюс проверка при плато(одинаковых значениях)
+
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -22,5 +25,19 @@ int main() {
     size_t idx = distance(heights.begin(), it);
     cout << "(проверка через STL) h_max = " << *it
          << ", t = " << times[idx] << endl;
+
+
+// через простой цикл (по индексу максимума)
+    // size_t idx_max = 0;
+    // for (size_t i = 1; i < heights.size(); ++i) {
+        // if (heights[i] > heights[idx_max]) idx_max = i;
+// }
+    // cout << "максимальная высота: " << fixed << setprecision(2) << heights[idx_max] << " м в момент t = " << setprecision(1) << times[idx_max] << " с" << endl;
+
+
+
+
+
+
     return 0;
 }
