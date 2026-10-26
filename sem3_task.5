@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+#include <iomanip>
+using namespace std;
+
+struct Point {
+    double x, y, z;
+};
+
+int main() {
+    double vx = 30, vy = 20, vz = 40; // нач скорости по условию
+    double dt = 0.5, t_max = 10.0;
+
+    vector<Point> traj;
+    traj.reserve((size_t)(t_max / dt) + 1);
+
+    double x = 0, y = 0, z = 0;
+    for (double t = 0; t <= t_max; t += dt) {
+        traj.push_back({x, y, z});   // сохраняем точку
+        // простой случай без ускорений x = vx*t, …
+        x += vx * dt;
+        y += vy * dt;
+        z += vz * dt;
+
+        // сложный случай с гравитацией(вместо строк выше) 
+        // vy -= 9.8 * dt;  
+        //x += vx*dt; 
+        //y += vy*dt; 
+        //z += vz*dt;
+    }
+
+    cout << setw(8) << "t" << setw(10) << "x" << setw(10) << "y" << setw(10) << "z" << endl;
+    double t = 0;
+    for (size_t i = 0; i < traj.size(); ++i, t += dt) {
+        cout << setw(8) << fixed << setprecision(1) << t
+             << setw(10) << traj[i].x
+             << setw(10) << traj[i].y
+             << setw(10) << traj[i].z << endl;
+    }
+    return 0;
+}
