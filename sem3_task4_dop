@@ -1,0 +1,24 @@
+// Вычисление суммарного пути ракеты (adjacent_difference + accumulate)
+
+
+#include <iostream>
+#include <vector>
+#include <numeric>
+#include <cmath>
+using namespace std;
+
+int main() {
+    // последовательные координаты ракеты по OY
+    vector<double> y = {0, 45, 80, 105, 120, 118, 100, 70, 35, 5};
+
+    // разности соседних значений (смещения)
+    vector<double> diffs(y.size());
+    adjacent_difference(y.begin(), y.end(), diffs.begin());
+    //  diffs[0] == y[0] (не смещение!!!), при сумме пропускаем его
+
+    double path = accumulate(diffs.begin() + 1, diffs.end(), 0.0,
+                             [](double a, double b) { return a + fabs(b); });
+
+    cout << "суммарный путь ракеты: " << path << " м" << endl;
+    return 0;
+}
