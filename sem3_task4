@@ -1,3 +1,6 @@
+// средняя скорость за весь полёт ракеты, используя std:accumulate
+
+
 #include <iostream>
 #include <vector>
 #include <numeric>
