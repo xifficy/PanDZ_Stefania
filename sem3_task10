@@ -1,3 +1,6 @@
+// Моделирование отряда. Создать std:vector ‹Rocket> (где Rocket - класс).
+
+
 #include <iostream>
 #include <vector>
 
