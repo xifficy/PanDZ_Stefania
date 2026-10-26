@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double v0 = 50.0;  // начальная скорость
+    double g = 9.8;    // ускорение свободного падения
+    double dt = 1.0;   // шаг времени, 1 с
+
+    if (v0 <= 0) {
+        cout << "Предупреждение: v0 должна быть больше 0!" << endl;
+        return 0;
+    }
+
+    vector<double> times, heights; //резервируем примерный размер, чтобы не было перераспределений
+    times.reserve((int)(v0 * 2 / g / dt) + 1);
+    heights.reserve((int)(v0 * 2 / g / dt) + 1);
+
+    for (double t = 0.0; ; t += dt) {
+        double h = v0 * t - 0.5 * g * t * t;  // h(t) = v0*t - 1/2*g*t^2
+        if (h < 0) break;                     // ракета упала
+        times.push_back(t);
+        heights.push_back(h);
+    }
+
+    cout << setw(10) << "t, с" << setw(15) << "h, м" << endl;
+    for (size_t i = 0; i < heights.size(); ++i) {
+        cout << setw(10) << fixed << setprecision(1) << times[i]
+             << setw(15) << fixed << setprecision(2) << heights[i] << endl;
+    }
+    return 0;
+}
