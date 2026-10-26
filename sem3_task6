@@ -1,0 +1,20 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+
+    vector<double> heights = {0, 15, 45, 80, 105, 118, 110, 85, 40, 5, 12}; // задали высоты для примера 
+
+    // !! remove_if сам не удаляет, а переносит хорошие в начало и возвращает итератор(!) на новый логический конец 
+
+    auto new_end = remove_if(heights.begin(), heights.end(),
+    [](double h) { return h < 10.0; });
+    heights.erase(new_end, heights.end());  // вот теперь реально удалили
+
+    cout << "оставшиеся высоты (>= 10м): ";
+    for (double h : heights) cout << h << " ";
+    cout << endl;
+    return 0;
+}
