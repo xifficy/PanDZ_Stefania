@@ -1,0 +1,21 @@
+// Очистка данных от шумов
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    // показания температуры(с ошибочными)
+    vector<double> temps = {85, 120, -150, 95, 260, 110, -30, 75, 199};
+
+    auto new_end = remove_if(temps.begin(), temps.end(),
+                             [](double t) { return t < -100 || t > 200; });
+    temps.erase(new_end, temps.end());
+
+    cout << "очищенный вектор: ";
+    for (double t : temps) cout << t << " ";
+    cout << endl;
+    return 0;
+}
