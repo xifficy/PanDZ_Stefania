@@ -1,3 +1,6 @@
+// Вектор скоростей для хранения скоростей по шагам времени
+
+
 #include <iostream>
 #include <vector>
 #include <iomanip>
