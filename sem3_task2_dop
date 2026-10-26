@@ -1,0 +1,15 @@
+// Подсчет нулевых показаний датчика
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    // данные датчика (0 если датчик не работает)
+    vector<double> sensor = {1.2, 0, 3.4, 0, 0, 5.6, 7.8, 0, 2.1};
+
+    int zeros = count(sensor.begin(), sensor.end(), 0.0);
+    cout << "число нулевых показаний: " << zeros << endl;
+    return 0;
+}
