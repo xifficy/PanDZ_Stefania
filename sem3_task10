@@ -1,0 +1,76 @@
+#include <iostream>
+#include <vector>
+
+struct Point {
+    double x, y, z;
+};
+
+class Rocket {
+private:
+    Point position;
+    Point velocity;
+
+public:
+    Rocket(double x, double y, double z, double vx, double vy, double vz) {
+        position = {x, y, z};
+        velocity = {vx, vy, vz};
+    }
+
+    void updatePosition(double dt) {
+        position.x += velocity.x * dt;
+        position.y += velocity.y * dt;
+        position.z += velocity.z * dt;
+    }
+
+    void changeVelocity(double dvx, double dvy, double dvz) {
+        velocity.x += dvx;
+        velocity.y += dvy;
+        velocity.z += dvz;
+    }
+
+    Point getPosition() const {
+        return position;
+    }
+};
+
+int main() {
+    // создаем сквад из 5 ракет
+
+    std::vector<Rocket> squad;
+    squad.reserve(5);
+
+    // позиция и скорость каждой ракеты 
+    squad.emplace_back(0, 0, 0, 1000, 10, 0);
+    squad.emplace_back(0, 0, 0, 900, 15, -5);
+    squad.emplace_back(0, 0, 0, 800, -5, 10);
+    squad.emplace_back(0, 0, 0, 1100, 0, 5);
+    squad.emplace_back(0, 0, 0, 700, 20, -10);
+
+    // вектор траектории для каждой ракеты
+    std::vector<std::vector<Point>> trajectories(5);
+
+    // начальные позиции
+    for (int i = 0; i < 5; ++i) {
+        trajectories[i].push_back(squad[i].getPosition());
+    }
+
+    // симулируем полет
+    double dt = 0.1;
+    double T = 10.0;
+
+    for (double t = 0.0; t <= T; t += dt) {
+        for (int i = 0; i < 5; ++i) {
+            squad[i].updatePosition(dt);
+            trajectories[i].push_back(squad[i].getPosition());
+        }
+    }
+
+    //  выводим конечные положения
+    for (int i = 0; i < 5; ++i) {
+        Point p = squad[i].getPosition();
+        std::cout << "ракета " << i + 1 << ": X=" << p.x 
+                  << ", Y=" << p.y << ", Z=" << p.z << "\n";
+    }
+
+    return 0;
+}
